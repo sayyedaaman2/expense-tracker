@@ -74,3 +74,30 @@ export const updateExpenseById = (req: Request, res: Response, next: NextFunctio
         }
     }
 };
+
+export const deleteExpenseById = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = Number(req.params.id);
+    const deleted = ExpenseService.deleteExpense(id);
+
+    if (deleted.changes == 0) {
+      return res.status(404).send({
+        success: false,
+        message: "Expense not found or already deleted.",
+      });
+    }
+    
+    res.status(200).send({
+      success: true,
+      message: "Expense deleted successfully.",
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      next(error);
+    }
+  }
+};

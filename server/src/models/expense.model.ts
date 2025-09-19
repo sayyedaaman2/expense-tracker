@@ -78,3 +78,8 @@ export const updateExpenseById = (id: number, payload: Omit<Expense, 'id' | 'cre
 
     return updateById.run(...values);
 }
+
+export const deleteExpenseById = (id: number) => {
+    const deleteStmt = db.prepare(`DELETE FROM expenses WHERE id = ?`);
+    return deleteStmt.run(id);
+};
