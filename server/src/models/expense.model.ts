@@ -30,3 +30,10 @@ export const insertExpense =(data:Omit<Expense, "id" |"createdAt"| "updatedAt">)
     } = data;
     return insert.run(title,amount,category);
 }
+
+export const selectExpense = ()=>{
+    
+    const select = db.prepare(`SELECT * FROM expenses`);
+
+    return select.all();
+}

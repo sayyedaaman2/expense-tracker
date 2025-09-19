@@ -15,3 +15,16 @@ export const postExpense = (req:Request,res:Response,next:NextFunction)=>{
             if(error instanceof Error) { next(error)}
         }
 }
+
+export const getExpenses = (req:Request,res:Response,next:NextFunction)=>{
+    try{
+        let data = ExpenseService.fetchExpense();
+        res.status(200).send({
+            success : true,
+            message : "Expenses fetched successfully.",
+            data
+        })
+    }catch(error){
+        if(error instanceof Error) { next(error)}
+    }
+}
