@@ -28,3 +28,23 @@ export const getExpenses = (req:Request,res:Response,next:NextFunction)=>{
         if(error instanceof Error) { next(error)}
     }
 }
+
+export const getExpenseById = (req:Request,res:Response,next:NextFunction)=>{
+    try{
+        let id = Number(req.params.id)
+        let data = ExpenseService.fetchExpenseById(id);
+        if(!data){
+            return res.status(404).send({
+                success : false,
+                message : "Expense not found"
+            })
+        }
+        res.status(200).send({
+            success : true,
+            message : "Expense fetched successfully.",
+            data
+        })
+    }catch(error){
+        if(error instanceof Error) { next(error)}
+    }
+}

@@ -37,3 +37,9 @@ export const selectExpense = ()=>{
 
     return select.all();
 }
+
+
+export const selectExpenseById = (id:number)=>{
+    const selectById = db.prepare(`SELECT * FROM expenses WHERE id=${id}`)
+    return selectById.get();
+}
